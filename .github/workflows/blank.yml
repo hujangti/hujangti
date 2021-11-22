@@ -1,0 +1,25 @@
+nama: Windows-CRD
+ 
+pada: 
+  alur_pengiriman:
+    masukan:
+      Kode kepemilikan:
+        deskripsi: 'Masukkan kode CRD'
+        diperlukan: benar
+      Kode PIN:
+        deskripsi: 'Pin enam digit'
+        diperlukan: benar
+ 
+pekerjaan:
+  membangun:
+    berjalan-on: windows-terbaru
+ 
+    Langkah:
+    - menggunakan: tindakan/checkout@v2
+    - nama: Inisialisasi Pengaturan
+      jalankan: ./setup.ps1
+    - nama: Mulai CRD
+      jalankan: ${{ github.event.inputs.authcode }} -pin=${{ github.event.inputs.pincode }}
+    - nama: Tetap Hidup
+      jalankan: ./timeout.ps1
+      
